@@ -1,23 +1,24 @@
-const navToggle = document.querySelector('.nav__toggle');
-const navLinks = document.querySelectorAll('.nav__link');
+var navToggle = document.querySelector('.nav__toggle');
+var navLinks = document.querySelectorAll('.nav__link');
 const len = navLinks.length;
 
-navToggle.addEventListener('click', () => {
+function addNavClickEvent() {
   document.body.classList.toggle('nav-open');
-});
-
-for(var i=0; i<len; i++) {
-  navLinks[i].addEventListener('click', (e) => {
-    e.preventDefault();
-    var myDestination = e.toElement.href;
-    document.body.classList.toggle('nav-open');
-    setTimeout(onLinkClick, 500, myDestination);
-  });
 }
 
-const onLinkClick = (myHref) => {
-  console.log(this);
-  console.log(myHref);
-  // TODO BN: this does not work for Win10 IE
+navToggle.addEventListener('click', addNavClickEvent);
+
+function addLinkClickEvent(e) {
+    e.preventDefault();
+    var myDestination = e.target;
+    document.body.classList.toggle('nav-open');
+    setTimeout(onLinkClick, 500, myDestination);
+}
+
+for(var i=0; i<len; i++) {
+  navLinks[i].addEventListener('click', addLinkClickEvent);
+}
+
+function onLinkClick(myHref) {
   window.location.href=myHref;
 }
