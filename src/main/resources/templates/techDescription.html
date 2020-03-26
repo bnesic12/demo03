@@ -1,0 +1,79 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Technonlogy Used</title>
+    <!--
+    <style type="text/css">
+        #main-header{
+            text-align: center;
+            background-color: black;
+            color:white;
+            padding:10px;
+        }
+    </style>
+    -->
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <header id="main-header">
+        <h1>Technology Used</h1>
+    </header>
+    <form id="backForm" action="#" th:action="@{/bnesic12}" method="GET">
+        <button class="backBtn"><i class="fa fa-home"></i> bnesic12 Home</button>
+    </form>
+    <section class="container">
+        <article class="post">
+            <h3>AWS Deployment - Instantiated and Configured: </h3>
+            <p>
+                <ul>
+                    <li>EC2, Amazon Linux, t2 micro</li>
+                    <li>VPC</li>
+                    <li>SSH, HTTP security group, firewall</li>
+                    <li>Tomcat 8.5.51</li>
+                </ul>
+            </p>
+        </article>
+        <article class="post">
+            <h3>Spring Server:</h3>
+            <p>
+            <ul>
+                <li>Spring Boot 2.2.4</li>
+                <li>Spring MVC</li>
+                <li>Server side processing (see 'Play Scrabble')</li>
+                <li>Java 1.8</li>
+            </ul>
+            </p>
+        </article>
+        <article class="post">
+            <h3>Web Client:</h3>
+            <p>
+            <ul>
+                <li>HTML5</li>
+                <li>Thymeleaf - Template Engine, View layer of Spring MVC</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>'Hamburger' menu, animation (menu on home page)</li>
+                <li>In-line SVG, SVG animation (hover mouse over SVG on home page)</li>
+            </ul>
+            </p>
+        </article>
+        <article class="post">
+            <h3>Dev Environment:</h3>
+            <p>
+            <ul>
+                <li>Maven</li>
+                <li>Git, GitHub</li>
+                <li>IntelliJ</li>
+                <li>SVG Editor</li>
+            </ul>
+            </p>
+        </article>
+    </section>
+</body>
+</html>

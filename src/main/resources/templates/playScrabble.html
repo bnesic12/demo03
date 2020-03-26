@@ -1,0 +1,51 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    -->
+    <title>Play Scrabble</title>
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<header>
+    <h1>Let's Play Scrabble</h1>
+</header>
+<form id="backForm" action="#" th:action="@{/bnesic12}" method="GET">
+    <button class="backBtn"><i class="fa fa-home"></i> bnesic12 Home</button>
+</form>
+<section class="container">
+    <form id="scrabbleForm" action="#" th:action="@{/playScrabble}" th:object="${scrabbleEntityObj}" method="POST">
+        <div class="msg"></div>
+        <h1>Enter Word</h1>
+        <div class="msg"></div>
+        <div>
+            <label for="word">Word:</label>
+            <input id="word" type="text" th:field="*{scrabbleWord}"/><br/>
+        </div>
+        <input class="btn" type="submit" value="Submit">
+    </form>
+    <ul class="items">
+        <li class="item">Score: <p th:text="${scrabbleEntityObj}"/></li>
+        <li class="item">Message: <p th:text="${scrabbleEntityObj.message}"/></li>
+        <li class="item"><span>Letter: <p th:text="${scrabbleEntityObj.allLetters}"/></span></li>
+        <li class="item">Points: <p th:text="${scrabbleEntityObj.allPoints}"/></li>
+        <li class="item">Distribution: <p th:text="${scrabbleEntityObj.allDistributions}"/></li>
+    </ul>
+
+</section>
+
+<footer id="main-footer">
+    <p>Copyright &copy; 2020, bnesic12</p>
+</footer>
+
+
+</body>
+</html>
