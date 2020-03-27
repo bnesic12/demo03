@@ -59,7 +59,7 @@ a { color: var(--clr-primary); }
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 3em 6em; /* go down 3em, go left 6em */
+  padding: 2em 1em; /* padding top/bottom was: 3em; padding left/right was: 6em */
 }
 
 .nav__link {
@@ -88,7 +88,6 @@ a { color: var(--clr-primary); }
   display: block;
   position: relative;
   border: none;
-  /*background-image: linear-gradient(var(--clr-dark), var(--clr-dark)); /*  hamburger line middle */
   background-image: linear-gradient(var(--clr-primary), var(--clr-primary));
 }
 
@@ -138,7 +137,6 @@ a { color: var(--clr-primary); }
 
 .nav-open .hamburger {
   height: 4px;
-  /*background-image: linear-gradient(var(--clr-ketchup) 40%, var(--clr-dark) 40%);*/
   background-image: linear-gradient(var(--clr-ketchup) 40%, var(--clr-primary) 40%);
 }
 
