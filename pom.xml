@@ -12,7 +12,7 @@
 	<artifactId>demo03</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<!-- replace the following with war to create WAR deployable -->
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>demo03</name>
 	<description>Demo03 project for Spring Boot</description>
@@ -37,12 +37,13 @@
 
 		<!--| Use this dependency in combo with war to build independently deployable WAR to a independent Tomcat
 		    | To use built-in Tomcat when running within IntelliJ, keep this commented out
+		    |-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		    |-->
+		<!--|    |-->
 
 
 		<dependency>
