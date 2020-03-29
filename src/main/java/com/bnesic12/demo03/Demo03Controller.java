@@ -1,6 +1,8 @@
 package com.bnesic12.demo03;
 
+import com.bnesic12.demo03.dto.DNetEntity;
 import com.bnesic12.demo03.dto.ScrabbleEntity;
+import com.bnesic12.demo03.services.IDijkstraService;
 import com.bnesic12.demo03.services.IScrabbleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ public class Demo03Controller {
 
     @Autowired
     private IScrabbleService scrabbleService;
+
+    @Autowired
+    private IDijkstraService pathService;
 
     @RequestMapping(value="/bnesic12", method= RequestMethod.GET)
     public String bnesic12Home(Model model) {
@@ -38,6 +43,22 @@ public class Demo03Controller {
             @ModelAttribute("scrabbleEntityObj") ScrabbleEntity scrabbleEntityObj,
             Model model) {
         return "playScrabble";
+    }
+
+    @RequestMapping(value="/findShortestPath", method=RequestMethod.GET)
+    public String findShortestPath(Model model) {
+        // Generates default network, finds shortest path A->F
+        DNetEntity dne = pathService.getDNet();
+        model.addAttribute("dne", dne);
+        return "findShortestPath";
+    }
+
+    @PostMapping(value="/findShortestPath")
+    public String findPath(
+            @ModelAttribute("dne") DNetEntity dne,
+            Model model) {
+        dne.reset();
+        return "findShortestPath";
     }
 
     @RequestMapping("/")

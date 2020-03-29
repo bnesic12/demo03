@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Path</title>
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<header>
+    <h1>Find Shortest Path (Dijkstra)</h1>
+</header>
+<form id="backForm" action="#" th:action="@{/bnesic12}" method="GET">
+    <button class="backBtn"><i class="fa fa-home"></i> bnesic12 Home</button>
+</form>
+
+<svg id="net2" width="450px" height="350px" viewBox="0 0 450 350" xmlns="http://www.w3.org/2000/svg">
+
+</svg>
+
+
+
+<section class="container">
+    <form id="pathForm" action="#" th:action="@{/findShortestPath}" th:object="${dne}" method="POST">
+        <div class="msg">
+            <p>Start node: <span type="text" th:text="${dne.startNode}"/></p>
+            <p>End node: <span type="text" th:text="${dne.destNode}"/></p>
+            <p>Shortest path and total: <span type="text" th:text="${dne.path}"/></p>
+        </div>
+        <h1>Enter Start/Destination Node</h1>
+        <div class="msg"></div>
+        <div>
+            <label for="startNodeLabel">Start Node:</label>
+            <input id="startNodeLabel" required="required" pattern="[A-F]{1,1}" size="2" maxlength="1" style="font-size:17px" type="text" th:field="*{startNode}"/><br/>
+        </div>
+        <div>
+            <label for="destNodeLabel">Destination Node:</label>
+            <input id="destNodeLabel" required="required" pattern="[A-F]{1,1}" size="2" maxlength="1" style="font-size:17px" type="text" th:field="*{destNode}"/><br/>
+        </div>
+        <input class="btn" type="submit" value="Submit">
+    </form>
+
+</section>
+
+<footer id="main-footer">
+    <p>Copyright &copy; 2020, bnesic12</p>
+</footer>
+
+<script type="text/javascript" src="showNet.js"></script>
+</body>
+</html>

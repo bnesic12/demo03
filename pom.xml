@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.bnesic12</groupId>
 	<artifactId>demo03</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<!-- replace the following with war to create WAR deployable -->
 	<packaging>war</packaging>
 
