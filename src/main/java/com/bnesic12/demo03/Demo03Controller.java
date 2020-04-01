@@ -49,6 +49,8 @@ public class Demo03Controller {
     public String findShortestPath(Model model) {
         // Generates default network, finds shortest path A->F
         DNetEntity dne = pathService.getDNet();
+        dne.generateNet2();
+        dne.calculatePath();
         model.addAttribute("dne", dne);
         return "findShortestPath";
     }
@@ -57,7 +59,12 @@ public class Demo03Controller {
     public String findPath(
             @ModelAttribute("dne") DNetEntity dne,
             Model model) {
-        dne.reset();
+        DNetEntity dneNew = pathService.getDNet();
+        dneNew.setStartNode(dne.getStartNode());
+        dneNew.setDestNode(dne.getDestNode());
+        dneNew.generateNet2();
+        dneNew.calculatePath();
+        model.addAttribute("dne", dneNew);
         return "findShortestPath";
     }
 

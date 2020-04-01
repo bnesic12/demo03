@@ -20,10 +20,10 @@
 <section class="container">
     <form id="scrabbleForm" action="#" th:action="@{/playScrabble}" th:object="${scrabbleEntityObj}" method="POST">
         <div class="msg"></div>
-        <h1>Enter Word</h1>
+        <h1>Enter String</h1>
         <div class="msg"></div>
         <div>
-            <label for="word">Word:</label>
+            <label for="word">String:</label>
             <input id="word" type="text" th:field="*{scrabbleWord}"/><br/>
         </div>
         <input class="btn" type="submit" value="Submit">
@@ -39,7 +39,7 @@
 </section>
 
 <footer id="main-footer">
-    <p>Copyright &copy; 2020, bnesic12</p>
+    <p>2020, bnesic12</p>
 </footer>
 
 

@@ -1,20 +1,33 @@
 package com.bnesic12.demo03.dto;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DNetEntity {
+
+    @Autowired
     private DNet dNet;
 
     private String startNode;
     private String destNode;
     private String path;
 
+    public DNet getdNet() {
+        return dNet;
+    }
+
+    public void setdNet(DNet dNet) {
+        this.dNet = dNet;
+    }
+
     public String getStartNode() {
         return startNode;
     }
 
     public void setStartNode(String startNode) {
-        if(startNode!=null && dNet!=null) {
-            this.startNode = startNode;
+        this.startNode = startNode;
+        if(dNet!=null) {
             dNet.setStartNode(startNode);
         }
     }
@@ -24,8 +37,8 @@ public class DNetEntity {
     }
 
     public void setDestNode(String destNode) {
-        if(destNode!=null && dNet!=null) {
-            this.destNode = destNode;
+        this.destNode = destNode;
+        if(dNet!=null) {
             dNet.setDestNode(destNode);
         }
     }
@@ -132,16 +145,13 @@ public class DNetEntity {
     public DNetEntity() {
         System.out.println("DNetEntity.ctor(): start");
         path = "none";
-        generateNet2();
         setStartNode("A");
         setDestNode("F");
-        calculatePath();
-        setPath(dNet.getPath());
         System.out.println("DNetEntity.ctor(): end");
     }
 
-    private void generateNet2() {
-        dNet = new DNet();
+    public void generateNet2() {
+        System.out.println("DNetEntity.generateNet2(): start");
 
         dNet.put("A");
         dNet.put("B");
@@ -160,18 +170,7 @@ public class DNetEntity {
         dNet.addEdge("C", "E", wCE, true);
         dNet.addEdge("E", "F", wEF, true);
         dNet.addEdge("D", "F", wDF, true);
-
-    }
-
-    public void reset() {
-        System.out.println("DNetEntity.reset(): start");
-        path = "none";
-        generateNet2();
-        setStartNode(startNode);
-        setDestNode(destNode);
-        calculatePath();
-        setPath(dNet.getPath());
-        System.out.println("DNetEntity.reset(): end");
+        System.out.println("DNetEntity.generateNet2(): end");
     }
 
     public void calculatePath() {

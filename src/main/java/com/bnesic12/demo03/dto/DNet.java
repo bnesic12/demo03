@@ -1,11 +1,22 @@
 package com.bnesic12.demo03.dto;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+@Component
 public class DNet {
+
+    public Map<String, DNode> getNet() {
+        return net;
+    }
+
+    public void setNet(Map<String, DNode> net) {
+        this.net = net;
+    }
 
     private Map<String, DNode> net;
     private String startNode;
@@ -37,8 +48,12 @@ public class DNet {
     }
 
     public DNet() {
+        System.out.println("DNet.ctor(): start");
         net = new HashMap<>();
         path = "none";
+        startNode = "A";
+        destNode = "F";
+        System.out.println("DNet.ctor(): end");
     }
 
     public void put(String node) {
@@ -74,6 +89,15 @@ public class DNet {
             rc+="i="+i+": "+entry.getValue()+"; EDGES: "+entry.getValue().getEdges();
             System.out.println(rc);
             i++;
+        }
+    }
+
+    public void resetWeights() {
+        Iterator<Map.Entry<String, DNode>> itr = net.entrySet().iterator();
+
+        while(itr.hasNext()) {
+            Map.Entry<String, DNode> entry = itr.next();
+            entry.getValue().setValue(Integer.MAX_VALUE);
         }
     }
 
@@ -128,36 +152,36 @@ public class DNet {
     }
 
     public String toString() {
-        // Path D->A
-        //DNode dest = net.get("D");
-        //System.out.print("D-->");
-        // Path F->A
-        DNode dest = net.get(destNode); // F
         path="";
-        ArrayList<String> res = new ArrayList<>();
-        res.add("-->"+dest.getName());
-        DNode prev = dest.getPrev();
-        int tot = 0;
-        while(prev!=null) {
-            int val = prev.getNeighWeight(dest);
-            tot+=val;
-            if(prev.getName().equals(startNode)) {
-                res.add(prev.getName() + "-->" + val);
-            } else {
-                res.add("-->" + prev.getName() + "-->" + val);
+        try {
+            DNode dest = net.get(destNode); // F
+
+            ArrayList<String> res = new ArrayList<>();
+            res.add("-->" + dest.getName());
+            DNode prev = dest.getPrev();
+            int tot = 0;
+            while (prev != null) {
+                int val = prev.getNeighWeight(dest);
+                tot += val;
+                if (prev.getName().equals(startNode)) {
+                    res.add(prev.getName() + "-->" + val);
+                } else {
+                    res.add("-->" + prev.getName() + "-->" + val);
+                }
+                dest = prev;
+                prev = dest.getPrev();
             }
-            //path+=val+"->"+prev.getName()+"-->";
-            dest=prev;
-            prev=dest.getPrev();
-        }
-        //path+="for total="+tot;
-        for(int i=res.size()-1; i>=0; i--) {
-            path+=res.get(i);
-        }
-        path+=", tot: "+tot;
+            for (int i = res.size() - 1; i >= 0; i--) {
+                path += res.get(i);
+            }
+            path += ", tot: " + tot;
+        } catch(Exception e) {}
         System.out.println(path);
         return path;
     }
 
+    public void finalize() {
+        System.out.println("DNet.finalize(): deleted");
+    }
 
 }

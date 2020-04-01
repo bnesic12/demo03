@@ -125,4 +125,7 @@ public class DNode {
         return rc;
     }
 
+    public void finalize() {
+        System.out.println("DNode.finalize(): deleting node "+name);
+    }
 }

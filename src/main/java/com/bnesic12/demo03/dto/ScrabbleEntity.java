@@ -1,5 +1,8 @@
 package com.bnesic12.demo03.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ScrabbleEntity {
     public final char[] letters =
             {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
@@ -141,7 +144,7 @@ public class ScrabbleEntity {
             }
             if(letterIndex<0) {
                 this.score="-1";
-                message="Internal error when processing the input word; score=-1";
+                message="Internal error when processing the input string; score=-1";
                 return message;
             }
             if(charAppearance[letterIndex]>= distribution[letterIndex]) {
@@ -161,7 +164,7 @@ public class ScrabbleEntity {
 
         }
         this.score=Integer.toString(score);
-        message = "Input word: '"+ this.scrabbleWord+"' has score: "+this.score;
+        message = "Input string: '"+ this.scrabbleWord+"' has score: "+this.score;
         if(hasWildcard) {
             message = message +" (wildcard)";
         }
@@ -174,7 +177,7 @@ public class ScrabbleEntity {
     }
 
     public static void main(String[] args) {
-        String[] tests = {"kick", "test", "captain", "anacondinicaNNNNN", null, "", "\t \t"};
+        String[] tests = {"kick", "test", "captain", null, "", "\t \t"};
         ScrabbleEntity scrabbleEntity = new ScrabbleEntity();
         for(String test : tests) {
             scrabbleEntity.setScrabbleWord(test);
