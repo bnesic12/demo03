@@ -1,14 +1,33 @@
 package com.bnesic12.demo03.dto;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class DNet {
+
+    public DNet() {
+        System.out.println("DNet.ctor(): start");
+        net = new HashMap<>();
+        startNode = "A";
+        destNode = "F";
+        System.out.println("DNet.ctor(): end");
+    }
+
+    /* DNode:
+    private boolean visited;
+    private int value;
+    private DNode prev;
+    private String name;
+     */
+    @Value("#{${dNodeA}}")
+    private Map<String, String> dNodeA;
+
+
 
     public Map<String, DNode> getNet() {
         return net;
@@ -18,18 +37,18 @@ public class DNet {
         this.net = net;
     }
 
+    public Map<String, String> getdNodeA() {
+        return dNodeA;
+    }
+
+    public void setdNodeA(Map<String, String> dNodeA) {
+        this.dNodeA = dNodeA;
+    }
+
+    
     private Map<String, DNode> net;
     private String startNode;
     private String destNode;
-    private String path;
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
 
     public String getStartNode() {
         return startNode;
@@ -47,14 +66,7 @@ public class DNet {
         this.destNode = destNode;
     }
 
-    public DNet() {
-        System.out.println("DNet.ctor(): start");
-        net = new HashMap<>();
-        path = "none";
-        startNode = "A";
-        destNode = "F";
-        System.out.println("DNet.ctor(): end");
-    }
+
 
     public void put(String node) {
         if(node!=null) {
@@ -152,36 +164,32 @@ public class DNet {
     }
 
     public String toString() {
-        path="";
+        StringBuffer sb = new StringBuffer();
         try {
-            DNode dest = net.get(destNode); // F
-
-            ArrayList<String> res = new ArrayList<>();
-            res.add("-->" + dest.getName());
+            DNode dest = net.get(destNode);
+            ArrayList<StringBuffer> res = new ArrayList<>();
+            res.add(new StringBuffer("-->" + dest.getName()));
             DNode prev = dest.getPrev();
             int tot = 0;
             while (prev != null) {
                 int val = prev.getNeighWeight(dest);
                 tot += val;
                 if (prev.getName().equals(startNode)) {
-                    res.add(prev.getName() + "-->" + val);
+                    res.add(new StringBuffer(prev.getName() + "-->" + val));
                 } else {
-                    res.add("-->" + prev.getName() + "-->" + val);
+                    res.add(new StringBuffer("-->" + prev.getName() + "-->" + val));
                 }
                 dest = prev;
                 prev = dest.getPrev();
             }
             for (int i = res.size() - 1; i >= 0; i--) {
-                path += res.get(i);
+                sb.append(res.get(i));
             }
-            path += ", tot: " + tot;
-        } catch(Exception e) {}
-        System.out.println(path);
-        return path;
-    }
-
-    public void finalize() {
-        System.out.println("DNet.finalize(): deleted");
+            sb.append(", tot: " + tot);
+        } catch(Exception e) {
+            sb.append("incomplete");
+        }
+        return sb.toString();
     }
 
 }

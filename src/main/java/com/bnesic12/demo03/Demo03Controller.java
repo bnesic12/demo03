@@ -59,10 +59,14 @@ public class Demo03Controller {
     public String findPath(
             @ModelAttribute("dne") DNetEntity dne,
             Model model) {
+        System.out.println("Demo03Controller.findPath()/POST: create new DNetEntity");
         DNetEntity dneNew = pathService.getDNet();
+        System.out.println("Demo03Controller.findPath()/POST: set start/dest nodes");
         dneNew.setStartNode(dne.getStartNode());
         dneNew.setDestNode(dne.getDestNode());
+        System.out.println("Demo03Controller.findPath()/POST: generate network");
         dneNew.generateNet2();
+        System.out.println("Demo03Controller.findPath()/POST: calculate path");
         dneNew.calculatePath();
         model.addAttribute("dne", dneNew);
         return "findShortestPath";

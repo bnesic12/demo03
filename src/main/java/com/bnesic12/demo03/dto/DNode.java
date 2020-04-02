@@ -55,6 +55,7 @@ public class DNode {
         prev = null;
         this.name = name;
         neighEdges = new HashMap<DNode, Integer>();
+        System.out.println("DNode.ctor(): name="+name+"; end");
     }
 
     public boolean addEdge(DNode neigh, int weight) {
@@ -116,13 +117,22 @@ public class DNode {
 
     @Override
     public String toString() {
-        String rc = "name="+name+", value="+value+", visited="+visited+", prev=";
+        StringBuffer sb = new StringBuffer();
+        String csp = ", ";
+        sb.append("name="+name);
+        sb.append(csp);
+        sb.append("value="+value);
+        sb.append(csp);
+        sb.append("visited="+visited);
+        sb.append(csp);
+        sb.append("prev=");
         if(prev!=null) {
-            rc+=prev.getName();
+            sb.append(prev.getName());
         } else {
-            rc+="none";
+            sb.append("none");
         }
-        return rc;
+        return sb.toString();
+
     }
 
     public void finalize() {

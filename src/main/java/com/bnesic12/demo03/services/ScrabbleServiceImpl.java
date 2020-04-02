@@ -2,9 +2,9 @@ package com.bnesic12.demo03.services;
 
 import com.bnesic12.demo03.dto.ScrabbleEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ScrabbleServiceImpl implements IScrabbleService {
 
     @Autowired

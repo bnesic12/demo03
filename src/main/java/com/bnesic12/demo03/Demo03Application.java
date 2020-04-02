@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Demo03Application {
 
 	public static void main(String[] args) {
-		System.out.println("Demo03Application.ctor(): start/end");
+		System.out.println("Demo03Application.main(): start/end");
 		SpringApplication.run(Demo03Application.class, args);
 	}
 
