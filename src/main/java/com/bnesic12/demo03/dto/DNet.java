@@ -1,33 +1,102 @@
 package com.bnesic12.demo03.dto;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
+// to use @ConfigurationProperties, must add configuration-processor into pom.xml
 @Component
+@ConfigurationProperties
+@PropertySource("classpath:dNetStartup.properties")
 public class DNet {
 
     public DNet() {
-        System.out.println("DNet.ctor(): start");
-        net = new HashMap<>();
-        startNode = "A";
-        destNode = "F";
-        System.out.println("DNet.ctor(): end");
+
     }
 
-    /* DNode:
-    private boolean visited;
-    private int value;
-    private DNode prev;
-    private String name;
-     */
-    @Value("#{${dNodeA}}")
-    private Map<String, String> dNodeA;
+    @PostConstruct
+    public void postConstructDNet() {
+        for(NetEdge edge : edges) {
+            this.addEdge(edge.getFrom(), edge.getTo(), edge.getWeight(), edge.isBiDir());
+        }
+    }
 
+    public String[] getListOfNodes() {
+        return listOfNodes;
+    }
 
+    public void setListOfNodes(String[] listOfNodes) {
+        this.listOfNodes = listOfNodes;
+    }
+
+    //application.properties file:
+    //listOfNodes=A,B,C,D,E,F
+    private String[] listOfNodes;
+
+    public List<NetEdge> getNetEdges() {
+        return edges;
+    }
+
+    public void setEdges(List<NetEdge> netEdges) {
+        this.edges = netEdges;
+    }
+
+    private List<NetEdge> edges;
+
+    //application.properties file:
+    //edges[0].from=B
+    //edges[0].to=C
+    //edges[0].weight:3
+    //edges[0].dir=bi
+    public static class NetEdge {
+        String from;
+        String to;
+        String weight;
+        String dir;
+
+        public String getFrom() {
+            return from;
+        }
+
+        public void setFrom(String from) {
+            this.from = from;
+        }
+
+        public String getTo() {
+            return to;
+        }
+
+        public void setTo(String to) {
+            this.to = to;
+        }
+
+        public String getWeight() {
+            return weight;
+        }
+
+        public void setWeight(String weight) {
+            this.weight = weight;
+        }
+
+        public String getDir() {
+            return dir;
+        }
+
+        public void setDir(String dir) {
+            this.dir = dir;
+        }
+
+        public boolean isBiDir() {
+            boolean rc=false;
+            if(this.dir.equals("bi")) {
+                rc=true;
+            }
+            return rc;
+        }
+    }
 
     public Map<String, DNode> getNet() {
         return net;
@@ -36,18 +105,15 @@ public class DNet {
     public void setNet(Map<String, DNode> net) {
         this.net = net;
     }
-
-    public Map<String, String> getdNodeA() {
-        return dNodeA;
-    }
-
-    public void setdNodeA(Map<String, String> dNodeA) {
-        this.dNodeA = dNodeA;
-    }
-
     
     private Map<String, DNode> net;
+
+    //application.properties file:
+    //startNode=A
     private String startNode;
+
+    //application.properties file:
+    //destNode=F
     private String destNode;
 
     public String getStartNode() {
@@ -66,8 +132,20 @@ public class DNet {
         this.destNode = destNode;
     }
 
+    public void resetNet() {
+        for(Map.Entry<String, DNode> entry : net.entrySet()) {
+            DNode node = entry.getValue();
+            if(entry.getKey().equals(startNode)) {
+                node.setValue(0);
+            } else {
+                node.setValue(Integer.MAX_VALUE);
+            }
+            node.setVisited(false);
+            node.setPrev(null);
+        }
+    }
 
-
+    // used by DNetEntity.generateNet2() to add DNode to network
     public void put(String node) {
         if(node!=null) {
             net.put(node, new DNode(node));
