@@ -62,9 +62,7 @@ public class DNetEntity {
     }
 
     public DNetEntity() {
-        System.out.println("DNetEntity.ctor(): start");
         path = "none";
-        System.out.println("DNetEntity.ctor(): end");
     }
 
     public void calculatePath() {

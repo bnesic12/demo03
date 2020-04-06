@@ -24,19 +24,7 @@ public class DNet {
         }
     }
 
-    public String[] getListOfNodes() {
-        return listOfNodes;
-    }
-
-    public void setListOfNodes(String[] listOfNodes) {
-        this.listOfNodes = listOfNodes;
-    }
-
-    //application.properties file:
-    //listOfNodes=A,B,C,D,E,F
-    private String[] listOfNodes;
-
-    public List<NetEdge> getNetEdges() {
+    public List<NetEdge> getEdges() {
         return edges;
     }
 
@@ -96,6 +84,12 @@ public class DNet {
             }
             return rc;
         }
+
+        public String toString() {
+            StringBuffer sb = new StringBuffer();
+            sb.append("from:"+this.from+",to:"+this.to+",weight:"+this.weight+",dir:"+dir);
+            return sb.toString();
+        }
     }
 
     public Map<String, DNode> getNet() {
@@ -142,13 +136,6 @@ public class DNet {
             }
             node.setVisited(false);
             node.setPrev(null);
-        }
-    }
-
-    // used by DNetEntity.generateNet2() to add DNode to network
-    public void put(String node) {
-        if(node!=null) {
-            net.put(node, new DNode(node));
         }
     }
 

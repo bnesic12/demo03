@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class Demo03Controller {
 
@@ -51,6 +54,14 @@ public class Demo03Controller {
         DNetEntity dne = pathService.getDNet();
         dne.calculatePath();
         model.addAttribute("dne", dne);
+
+        Object[] oNodes = dne.getdNet().getNet().keySet().toArray();
+        List<String> dNodes = new ArrayList<>();
+        for(Object oNode : oNodes) {
+            dNodes.add((String) oNode);
+        }
+        model.addAttribute("nodes", dNodes);
+
         return "findShortestPath";
     }
 
@@ -64,6 +75,14 @@ public class Demo03Controller {
         dneNew.resetNet();
         dneNew.calculatePath();
         model.addAttribute("dne", dneNew);
+
+        Object[] oNodes = dneNew.getdNet().getNet().keySet().toArray();
+        List<String> dNodes = new ArrayList<>();
+        for(Object oNode : oNodes) {
+            dNodes.add((String) oNode);
+        }
+        model.addAttribute("nodes", dNodes);
+
         return "findShortestPath";
     }
 

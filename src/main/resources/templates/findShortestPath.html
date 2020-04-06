@@ -50,6 +50,13 @@
     <p>2020, bnesic12</p>
 </footer>
 
-<script type="text/javascript" src="showNet.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    var dNetEdges = [[${dne.dNet.edges}]];
+</script>
+<script type="text/javascript" th:object="${nodes}" th:inline="javascript">
+    var dNetNodes = [[${nodes}]];
+</script>
+
+<script type="text/javascript" th:src="@{showNet.js}" src="showNet.js"></script>
 </body>
 </html>
